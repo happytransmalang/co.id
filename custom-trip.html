@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Trip - Happy Trans Malang</title>
+    <meta name="description" content="Rencanakan perjalanan custom Anda bersama Happy Trans Malang. Konsultasi gratis dengan tour planner kami.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0066cc; --primary-dark: #004a99; --secondary: #ff6b35; --secondary-dark: #e55525;
+            --accent: #ffc93c; --gold: #c9a961; --dark: #1a2b3c; --gray: #6c757d; --light: #f8f9fa;
+            --white: #ffffff; --success: #28a745; --danger: #dc3545;
+            --shadow: 0 5px 20px rgba(0,0,0,0.1); --shadow-lg: 0 15px 40px rgba(0,0,0,0.15); --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: var(--dark); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; line-height: 1.3; }
+        img { max-width: 100%; height: auto; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+        .logo-text { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--dark); line-height: 1.1; }
+        .logo-text .happy { color: var(--gold); display: block; font-size: 22px; }
+        .logo-text .trans { color: var(--primary); font-size: 18px; }
+        .logo-text .malang { color: var(--gray); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+        .nav-links { display: flex; list-style: none; gap: 22px; align-items: center; }
+        .nav-links a { color: var(--dark); font-weight: 500; font-size: 14px; transition: var(--transition); position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--secondary); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta { background: var(--secondary); color: var(--white) !important; padding: 10px 25px; border-radius: 50px; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; }
+        .nav-cta:hover { background: var(--secondary-dark); }
+        .nav-cta::after { display: none; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--primary); cursor: pointer; }
+
+        .page-hero {
+            background: linear-gradient(135deg, rgba(0,74,153,0.9) 0%, rgba(0,102,204,0.75) 100%), url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80') center/cover;
+            padding: 80px 0 60px; color: var(--white); text-align: center;
+        }
+        .page-hero h1 { font-size: 36px; margin-bottom: 15px; }
+        .page-hero .subtitle { font-size: 16px; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+
+        .form-section { padding: 60px 0; background: var(--light); }
+        .form-intro { text-align: center; margin-bottom: 40px; font-size: 16px; color: var(--dark); }
+
+        .progress-steps { display: flex; justify-content: center; align-items: center; margin-bottom: 50px; flex-wrap: wrap; gap: 10px; }
+        .step { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; min-width: 150px; max-width: 200px; }
+        .step-icon { width: 50px; height: 50px; border-radius: 50%; background: var(--gray); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 20px; transition: var(--transition); }
+        .step.active .step-icon { background: var(--primary); }
+        .step.completed .step-icon { background: var(--success); }
+        .step-label { font-size: 12px; text-align: center; color: var(--gray); font-weight: 500; }
+        .step.active .step-label { color: var(--primary); font-weight: 600; }
+        .step-connector { flex: 1; height: 2px; background: var(--gray); max-width: 100px; }
+        .step.completed + .step-connector { background: var(--success); }
+
+        .form-container { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: var(--shadow); max-width: 900px; margin: 0 auto; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 25px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-weight: 600; font-size: 14px; color: var(--dark); }
+        .form-group label .required { color: var(--danger); }
+        .form-group input, .form-group select { padding: 12px 15px; border: 2px solid #ddd; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 14px; transition: var(--transition); }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); }
+        .form-group input::placeholder { color: var(--gray); }
+        .form-section-title { font-size: 14px; color: var(--gray); text-align: center; margin: 20px 0; font-weight: 500; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .btn-submit { width: 100%; padding: 15px; background: var(--accent); color: var(--dark); border: none; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
+        .btn-submit:hover { background: #ffb300; transform: translateY(-2px); box-shadow: var(--shadow); }
+
+        .custom-trip-banner { background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); color: var(--white); padding: 30px 0; text-align: center; }
+        .custom-trip-banner h3 { font-size: 20px; margin-bottom: 15px; }
+        .btn-custom { display: inline-block; padding: 12px 30px; background: var(--accent); color: var(--dark); border-radius: 50px; font-weight: 700; transition: var(--transition); }
+        .btn-custom:hover { background: #ffb300; transform: translateY(-3px); box-shadow: var(--shadow); }
+
+        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 60px 0 0; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: var(--white); font-size: 18px; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+        .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: var(--secondary); }
+        .footer-about p { margin-bottom: 20px; font-size: 14px; line-height: 1.8; }
+        .social-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .social-links a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); transition: var(--transition); }
+        .social-links a:hover { transform: translateY(-3px); background: var(--secondary); }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul a { color: rgba(255,255,255,0.7); font-size: 14px; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+        .footer-col ul a:hover { color: var(--secondary); padding-left: 5px; }
+        .footer-contact p { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; font-size: 14px; }
+        .footer-contact i { color: var(--secondary); margin-top: 4px; }
+        .newsletter-form { display: flex; margin-top: 15px; }
+        .newsletter-form input { flex: 1; padding: 10px; border: none; border-radius: 5px 0 0 5px; outline: none; }
+        .newsletter-form button { padding: 10px 15px; background: var(--secondary); color: var(--white); border: none; border-radius: 0 5px 5px 0; cursor: pointer; transition: var(--transition); }
+        .newsletter-form button:hover { background: var(--secondary-dark); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 20px 0; text-align: center; font-size: 14px; }
+        .footer-bottom span { color: var(--secondary); font-weight: 600; }
+
+        .floating-wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 999; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+        .floating-wa { width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 28px; box-shadow: 0 5px 20px rgba(37,211,102,0.4); transition: var(--transition); animation: pulse 2s infinite; position: relative; text-decoration: none; }
+        .floating-wa:hover { transform: scale(1.1); }
+        .floating-wa .wa-tooltip { position: absolute; right: 70px; background: var(--white); color: var(--dark); padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: 500; white-space: nowrap; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: var(--transition); }
+        .floating-wa:hover .wa-tooltip { opacity: 1; }
+        .floating-wa .wa-tooltip::after { content: ''; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-left-color: var(--white); }
+        .floating-wa.secondary { background: var(--primary); animation: pulseBlue 2s infinite; animation-delay: 0.5s; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 5px 20px rgba(37,211,102,0.4); } 50% { box-shadow: 0 5px 30px rgba(37,211,102,0.8); } }
+        @keyframes pulseBlue { 0%, 100% { box-shadow: 0 5px 20px rgba(0,102,204,0.4); } 50% { box-shadow: 0 5px 30px rgba(0,102,204,0.8); } }
+
+        @media (max-width: 992px) { .footer-content { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 20px; box-shadow: var(--shadow); gap: 15px; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .page-hero h1 { font-size: 28px; }
+            .footer-content { grid-template-columns: 1fr; }
+            .floating-wa-container { bottom: 20px; right: 20px; }
+            .floating-wa { width: 55px; height: 55px; font-size: 24px; }
+            .logo-text .happy { font-size: 18px; }
+            .logo-text .trans { font-size: 16px; }
+            .logo-img { width: 45px; height: 45px; }
+            .form-container { padding: 25px; }
+            .form-row { grid-template-columns: 1fr; }
+            .progress-steps { gap: 5px; }
+            .step { min-width: 100px; }
+            .step-icon { width: 40px; height: 40px; font-size: 16px; }
+            .step-label { font-size: 10px; }
+        }
+    </style>
+<!-- Favicon untuk menampilkan logo di tab browser -->
+<link rel="icon" type="image/png" href="logo.png">
+<!-- Favicon Dasar -->
+<link rel="icon" type="image/png" href="favicon.png">
+  
+<!-- Untuk layar Home Screen iPhone/iPad -->
+<link rel="apple-touch-icon" href="favicon.png">
+  
+<!-- Untuk Android Chrome -->
+<meta name="theme-color" content="#ffffff">
+<!-- Ganti #ffffff dengan warna utama brand Anda -->
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="./" class="logo">
+                    <img src="https://i.ibb.co.com/G32957D0/Chat-GPT-Image-Jul-8-2026-04-33-03-PM.png" alt="Logo Happy Trans Malang" class="logo-img">
+                    <div class="logo-text">
+                        <span class="happy">HAPPY</span>
+                        <span class="trans">TRANS</span>
+                        <span class="malang">Malang</span>
+                    </div>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="./">Beranda</a></li>
+                    <li><a href="armada.html">Armada</a></li>
+                    <li><a href="paket-wisata.html">Paket Wisata</a></li>
+                    <li><a href="custom-trip.html" style="color: var(--secondary);">Custom Trip</a></li>
+                    <li><a href="sewa-bus.html">Sewa Bus</a></li>
+                    <li><button class="nav-cta" onclick="scrollToForm()">Booking</button></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>Custom Trip</h1>
+                <p class="subtitle">Rencanakan perjalanan impian Anda bersama kami. Isi formulir di bawah untuk konsultasi dengan tour planner kami.</p>
+            </div>
+        </section>
+
+        <section class="form-section" id="consultationForm">
+            <div class="container">
+                <p class="form-intro">Untuk berkonsultasi dengan tim tour planner kami, silahkan isi formulir dibawah ini.</p>
+                
+                <div class="progress-steps">
+                    <div class="step active">
+                        <div class="step-icon"><i class="fas fa-clock"></i></div>
+                        <div class="step-label">Info Destinasi & Waktu</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <div class="step-label">Info Kebutuhan</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="step-label">Info Kedatangan</div>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-user"></i></div>
+                        <div class="step-label">Info Identitas</div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form id="customTripForm" onsubmit="handleSubmit(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Kemana anda ingin berlibur? <span class="required">*</span></label>
+                                <select required id="destination">
+                                    <option value="">- PILIH DESTINASI -</option>
+                                    <option value="bromo">Gunung Bromo</option>
+                                    <option value="batu">Kota Batu</option>
+                                    <option value="malang">Kota Malang</option>
+                                    <option value="pantai">Pantai Selatan</option>
+                                    <option value="custom">Custom Destination</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Berapa lama ingin berlibur? <span class="required">*</span></label>
+                                <select required id="duration">
+                                    <option value="">- PILIH DURASI -</option>
+                                    <option value="1">1 Hari</option>
+                                    <option value="2">2 Hari 1 Malam</option>
+                                    <option value="3">3 Hari 2 Malam</option>
+                                    <option value="4">4 Hari 3 Malam</option>
+                                    <option value="more">Lebih dari 4 hari</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Kapan anda ingin berlibur? <span class="required">*</span></label>
+                                <input type="date" required id="travelDate">
+                            </div>
+                        </div>
+
+                        <p class="form-section-title">Berapa Peserta yang ingin ikut berlibur?</p>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Peserta Dewasa <span class="required">*</span></label>
+                                <input type="number" min="0" value="0" required id="adults">
+                            </div>
+                            <div class="form-group">
+                                <label>Peserta Anak</label>
+                                <input type="number" min="0" value="0" id="children">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Selanjutnya</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="custom-trip-banner">
+            <div class="container">
+                <h3>Perlu KONSULTASI atau ingin PAKET CUSTOM TRIP? Klik disini!</h3>
+                <a href="https://wa.me/6288235416304?text=Halo%20Happy%20Trans%20Malang,%20saya%20ingin%20konsultasi%20paket%20custom%20trip" class="btn-custom" target="_blank">
+                    <i class="fas fa-route"></i> CUSTOM TRIP
+                </a>
+            </div>
+        </section>
+
+        <div class="floating-wa-container">
+            <a href="https://wa.me/6288235416304?text=Halo%20Happy%20Trans%20Malang,%20saya%20ingin%20konsultasi%20custom%20trip" class="floating-wa" target="_blank">
+                <i class="fab fa-whatsapp"></i><span class="wa-tooltip">WA: 0882-3541-6304</span>
+            </a>
+            <a href="https://wa.me/6281284876147?text=Halo%20Happy%20Trans%20Malang,%20saya%20ingin%20konsultasi%20custom%20trip" class="floating-wa secondary" target="_blank">
+                <i class="fab fa-whatsapp"></i><span class="wa-tooltip">WA: 0812-8487-6147</span>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col footer-about">
+                    <h4>Tentang Kami</h4>
+                    <p>Happy Trans Malang adalah penyedia layanan transportasi pariwisata terpercaya di Malang dan Batu. Kami menyediakan sewa Hiace, Medium Bus, dan Big Bus dengan armada terawat dan driver profesional.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/6288235416304"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col footer-links">
+                    <h4>Link Cepat</h4>
+                    <ul>
+                        <li><a href="./">Beranda</a></li>
+                        <li><a href="armada.html">Armada</a></li>
+                        <li><a href="paket-wisata.html">Paket Wisata</a></li>
+                        <li><a href="custom-trip.html">Custom Trip</a></li>
+                        <li><a href="sewa-bus.html">Sewa Bus</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col footer-contact">
+                    <h4>Hubungi Kami</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Kajoetangan Heritage, Jl. Arif Rahman Hakim, Malang</p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/6288235416304">0882-3541-6304</a></p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/6281284876147">0812-8487-6147</a></p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:happytransmalang@gmail.com">happytransmalang@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> 24/7 Online Support</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan!'); this.reset();">
+                        <input type="email" placeholder="Email Anda" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <span>Happy Trans Malang</span>. All rights reserved. | Kajoetangan Heritage, Malang</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) { icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times'); }
+            });
+        }
+
+        function scrollToForm() {
+            document.getElementById('consultationForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            const destination = document.getElementById('destination').value;
+            const duration = document.getElementById('duration').value;
+            const travelDate = document.getElementById('travelDate').value;
+            const adults = document.getElementById('adults').value;
+            const children = document.getElementById('children').value;
+            
+            const message = `Halo Happy Trans Malang, saya ingin konsultasi Custom Trip:%0A%0A` +
+                          `📍 Destinasi: ${destination}%0A` +
+                          `⏱️ Durasi: ${duration} hari%0A` +
+                          `📅 Tanggal: ${travelDate}%0A` +
+                          `👥 Peserta Dewasa: ${adults}%0A` +
+                          `👶 Peserta Anak: ${children}%0A%0A` +
+                          `Mohon informasi lebih lanjut. Terima kasih!`;
+            
+            window.open(`https://wa.me/6288235416304?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
