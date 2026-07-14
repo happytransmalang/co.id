@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sewa Bus Pariwisata Malang - Happy Trans Malang</title>
+    <meta name="description" content="Sewa Medium Bus, ELF, dan Big Bus untuk pariwisata, ziarah, dan gathering di Malang, Batu, dan Jawa Timur. Armada terawat, harga terjangkau.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0066cc; --primary-dark: #004a99; --secondary: #ff6b35; --secondary-dark: #e55525;
+            --accent: #ffc93c; --gold: #c9a961; --dark: #1a2b3c; --gray: #6c757d; --light: #f8f9fa;
+            --white: #ffffff; --success: #28a745; --danger: #dc3545;
+            --shadow: 0 5px 20px rgba(0,0,0,0.1); --shadow-lg: 0 15px 40px rgba(0,0,0,0.15); --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: var(--dark); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; line-height: 1.3; }
+        img { max-width: 100%; height: auto; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+        .logo-text { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--dark); line-height: 1.1; }
+        .logo-text .happy { color: var(--gold); display: block; font-size: 22px; }
+        .logo-text .trans { color: var(--primary); font-size: 18px; }
+        .logo-text .malang { color: var(--gray); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+        .nav-links { display: flex; list-style: none; gap: 22px; align-items: center; }
+        .nav-links a { color: var(--dark); font-weight: 500; font-size: 14px; transition: var(--transition); position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--secondary); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta { background: var(--secondary); color: var(--white) !important; padding: 10px 25px; border-radius: 50px; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; }
+        .nav-cta:hover { background: var(--secondary-dark); }
+        .nav-cta::after { display: none; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--primary); cursor: pointer; }
+
+        .page-hero {
+            background: linear-gradient(135deg, rgba(0,74,153,0.9) 0%, rgba(0,102,204,0.75) 100%), url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1920&q=80') center/cover;
+            padding: 100px 0 80px; color: var(--white); text-align: center;
+        }
+        .page-hero h1 { font-size: 42px; margin-bottom: 15px; }
+        .page-hero .subtitle { font-size: 16px; opacity: 0.9; max-width: 700px; margin: 0 auto 25px; }
+        .breadcrumb { display: flex; justify-content: center; gap: 10px; font-size: 14px; opacity: 0.9; }
+        .breadcrumb a { color: var(--accent); }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        .fleet-section { padding: 80px 0; background: var(--light); }
+        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .fleet-card {
+            background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
+            transition: var(--transition); display: flex; flex-direction: column; position: relative;
+        }
+        .fleet-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        .fleet-card.featured { border: 2px solid var(--secondary); }
+        .fleet-card.featured::before {
+            content: '⭐ POPULER'; position: absolute; top: 15px; right: -30px; background: var(--secondary);
+            color: var(--white); padding: 5px 40px; font-size: 11px; font-weight: 700; letter-spacing: 1px; transform: rotate(45deg); z-index: 2;
+        }
+        .fleet-image { height: 220px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; background: var(--dark); }
+        .fleet-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .fleet-card:hover .fleet-image img { transform: scale(1.08); }
+        .fleet-image .fleet-tag {
+            position: absolute; top: 15px; right: 15px; background: var(--secondary); color: var(--white);
+            padding: 5px 15px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; z-index: 2;
+        }
+        .fleet-pricing { padding: 20px 25px; text-align: center; background: var(--light); border-bottom: 1px solid #eee; }
+        .fleet-price { font-size: 28px; font-weight: 800; color: var(--secondary); font-family: 'Montserrat', sans-serif; }
+        .fleet-price small { font-size: 14px; color: var(--gray); font-weight: 500; }
+        .fleet-note { font-size: 11px; color: var(--gray); margin-top: 3px; font-style: italic; }
+        .fleet-body { padding: 20px 25px; flex: 1; display: flex; flex-direction: column; }
+        .fleet-header-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
+        .fleet-name { font-size: 20px; font-weight: 700; color: var(--dark); }
+        .fleet-capacity { display: inline-flex; align-items: center; gap: 6px; background: var(--primary); color: var(--white); padding: 6px 12px; border-radius: 50px; font-weight: 600; font-size: 12px; }
+        .fleet-list { list-style: none; margin-bottom: 12px; }
+        .fleet-list li { padding: 6px 0; font-size: 13px; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+        .fleet-list li i.fa-check { color: var(--success); }
+        .fleet-footer { margin-top: auto; padding-top: 15px; }
+        .fleet-btn {
+            display: block; text-align: center; background: var(--primary); color: var(--white); padding: 12px;
+            border-radius: 50px; font-weight: 600; transition: var(--transition); text-transform: uppercase; letter-spacing: 0.5px; font-size: 13px;
+        }
+        .fleet-btn:hover { background: var(--secondary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255,107,53,0.3); }
+
+        .cta-section { padding: 80px 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: var(--white); text-align: center; }
+        .cta-section h2 { font-size: 36px; margin-bottom: 15px; }
+        .cta-section p { font-size: 16px; opacity: 0.9; max-width: 700px; margin: 0 auto 25px; }
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 12px 30px; border-radius: 50px; font-weight: 600; transition: var(--transition); }
+        .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--white); }
+        .btn-outline:hover { background: var(--white); color: var(--primary); }
+        .btn-wa { background: #25d366; color: var(--white); }
+        .btn-wa:hover { background: #1ebe57; transform: translateY(-3px); }
+
+        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 60px 0 0; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: var(--white); font-size: 18px; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+        .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: var(--secondary); }
+        .footer-about p { margin-bottom: 20px; font-size: 14px; line-height: 1.8; }
+        .social-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .social-links a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); transition: var(--transition); }
+        .social-links a:hover { transform: translateY(-3px); background: var(--secondary); }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul a { color: rgba(255,255,255,0.7); font-size: 14px; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+        .footer-col ul a:hover { color: var(--secondary); padding-left: 5px; }
+        .footer-contact p { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; font-size: 14px; }
+        .footer-contact i { color: var(--secondary); margin-top: 4px; }
+        .newsletter-form { display: flex; margin-top: 15px; }
+        .newsletter-form input { flex: 1; padding: 10px; border: none; border-radius: 5px 0 0 5px; outline: none; }
+        .newsletter-form button { padding: 10px 15px; background: var(--secondary); color: var(--white); border: none; border-radius: 0 5px 5px 0; cursor: pointer; transition: var(--transition); }
+        .newsletter-form button:hover { background: var(--secondary-dark); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 20px 0; text-align: center; font-size: 14px; }
+        .footer-bottom span { color: var(--secondary); font-weight: 600; }
+
+        .floating-wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 999; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+        .floating-wa { width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 28px; box-shadow: 0 5px 20px rgba(37,211,102,0.4); transition: var(--transition); animation: pulse 2s infinite; position: relative; text-decoration: none; }
+        .floating-wa:hover { transform: scale(1.1); }
+        .floating-wa .wa-tooltip { position: absolute; right: 70px; background: var(--white); color: var(--dark); padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: 500; white-space: nowrap; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: var(--transition); }
+        .floating-wa:hover .wa-tooltip { opacity: 1; }
+        .floating-wa .wa-tooltip::after { content: ''; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-left-color: var(--white); }
+        .floating-wa.secondary { background: var(--primary); animation: pulseBlue 2s infinite; animation-delay: 0.5s; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 5px 20px rgba(37,211,102,0.4); } 50% { box-shadow: 0 5px 30px rgba(37,211,102,0.8); } }
+        @keyframes pulseBlue { 0%, 100% { box-shadow: 0 5px 20px rgba(0,102,204,0.4); } 50% { box-shadow: 0 5px 30px rgba(0,102,204,0.8); } }
+
+        /* ==================== BOOKING MODAL STYLES ==================== */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            padding: 20px; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-container {
+            background: var(--white); width: 100%; max-width: 700px;
+            border-radius: 15px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden; max-height: 90vh; overflow-y: auto;
+            transform: scale(0.9); transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-container { transform: scale(1); }
+        .modal-header {
+            background: linear-gradient(135deg, #0066cc 0%, #ff6b35 100%);
+            color: var(--white); padding: 25px 30px; display: flex;
+            justify-content: space-between; align-items: flex-start; position: relative;
+        }
+        .modal-header-content h3 { font-size: 24px; margin: 0 0 5px 0; display: flex; align-items: center; gap: 10px; }
+        .modal-header-content p { margin: 0; font-size: 14px; opacity: 0.9; }
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2); border: none; color: var(--white);
+            width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; font-size: 18px;
+        }
+        .modal-close:hover { background: rgba(255, 255, 255, 0.3); transform: rotate(90deg); }
+        .modal-body { padding: 30px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 0; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--dark); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group label .required { color: var(--danger); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 12px 15px; border: 2px solid #e9ecef; border-radius: 8px;
+            font-family: 'Poppins', sans-serif; font-size: 14px; transition: all 0.3s ease; background: var(--light);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .booking-summary {
+            background: #f8f9fa; border-left: 4px solid var(--secondary);
+            padding: 15px 20px; border-radius: 8px; margin-bottom: 25px;
+        }
+        .booking-summary h4 { font-size: 14px; margin: 0 0 8px 0; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+        .booking-summary p { font-size: 13px; color: var(--gray); margin: 0; }
+        .btn-whatsapp {
+            width: 100%; padding: 16px; background: #25d366; color: var(--white);
+            border: none; border-radius: 10px; font-weight: 700; font-size: 16px;
+            cursor: pointer; transition: all 0.3s ease; display: flex;
+            align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-whatsapp:hover { background: #1ebe57; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); }
+
+        @media (max-width: 992px) { .footer-content { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 20px; box-shadow: var(--shadow); gap: 15px; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .page-hero h1 { font-size: 28px; }
+            .footer-content { grid-template-columns: 1fr; }
+            .floating-wa-container { bottom: 20px; right: 20px; }
+            .floating-wa { width: 55px; height: 55px; font-size: 24px; }
+            .logo-text .happy { font-size: 18px; }
+            .logo-text .trans { font-size: 16px; }
+            .logo-img { width: 45px; height: 45px; }
+            
+            .form-row { grid-template-columns: 1fr; gap: 15px; }
+            .modal-header { padding: 20px; }
+            .modal-header-content h3 { font-size: 20px; }
+            .modal-body { padding: 20px; }
+            .btn-whatsapp { font-size: 14px; padding: 14px; }
+        }
+    </style>
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="./" class="logo">
+                    <img src="https://i.ibb.co.com/G32957D0/Chat-GPT-Image-Jul-8-2026-04-33-03-PM.png" alt="Logo Happy Trans Malang" class="logo-img">
+                    <div class="logo-text">
+                        <span class="happy">HAPPY</span>
+                        <span class="trans">TRANS</span>
+                        <span class="malang">Malang</span>
+                    </div>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="./">Beranda</a></li>
+                    <li><a href="armada.html">Armada</a></li>
+                    <li><a href="paket-wisata.html">Paket Wisata</a></li>
+                    <li><a href="custom-trip.html">Custom Trip</a></li>
+                    <li><a href="sewa-bus.html" style="color: var(--secondary);">Sewa Bus</a></li>
+                    <li><button class="nav-cta" onclick="openBookingModal('Sewa Bus Pariwisata')">Booking</button></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>Sewa Bus & ELF Pariwisata</h1>
+                <p class="subtitle">Medium Bus, ELF, dan Big Bus nyaman, terawat, dan ber-AC untuk rombongan wisata, ziarah, sekolah, atau perusahaan di Malang dan Jawa Timur.</p>
+                <div class="breadcrumb">
+                    <a href="./">Beranda</a> <span>/</span> <span>Sewa Bus & ELF</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="fleet-section">
+            <div class="container">
+                <div class="fleet-grid">
+                    <!-- Medium Bus -->
+                    <div class="fleet-card">
+                        <div class="fleet-image">
+                            <span class="fleet-tag">Rombongan Sedang</span>
+                            <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=600&q=80" alt="Medium Bus">
+                        </div>
+                        <div class="fleet-pricing">
+                            <div class="fleet-price">Hubungi Kami</div>
+                            <div class="fleet-note">Harga menyesuaikan rute & durasi</div>
+                        </div>
+                        <div class="fleet-body">
+                            <div class="fleet-header-info">
+                                <div class="fleet-name">Medium Bus</div>
+                                <div class="fleet-capacity"><i class="fas fa-user"></i> 30 - 35 Seat</div>
+                            </div>
+                            <ul class="fleet-list">
+                                <li><i class="fas fa-check"></i> AC Dingin & Kursi Reclining</li>
+                                <li><i class="fas fa-check"></i> Audio & Karaoke</li>
+                                <li><i class="fas fa-check"></i> Driver Berpengalaman</li>
+                                <li><i class="fas fa-check"></i> Asuransi Penumpang</li>
+                            </ul>
+                            <div class="fleet-footer">
+                                <a href="#" class="fleet-btn" onclick="openBookingModal('Medium Bus'); return false;"><i class="fab fa-whatsapp"></i> Booking Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Big Bus Standard -->
+                    <div class="fleet-card featured">
+                        <div class="fleet-image">
+                            <span class="fleet-tag">Paling Diminati</span>
+                            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80" alt="Big Bus Standard">
+                        </div>
+                        <div class="fleet-pricing">
+                            <div class="fleet-price">Hubungi Kami</div>
+                            <div class="fleet-note">Harga menyesuaikan rute & durasi</div>
+                        </div>
+                        <div class="fleet-body">
+                            <div class="fleet-header-info">
+                                <div class="fleet-name">Big Bus Standard</div>
+                                <div class="fleet-capacity"><i class="fas fa-user"></i> 50 - 59 Seat</div>
+                            </div>
+                            <ul class="fleet-list">
+                                <li><i class="fas fa-check"></i> AC Double Blower</li>
+                                <li><i class="fas fa-check"></i> Kursi Empuk & Leg Rest</li>
+                                <li><i class="fas fa-check"></i> Toilet & Audio Visual</li>
+                                <li><i class="fas fa-check"></i> Driver & Kernet Profesional</li>
+                            </ul>
+                            <div class="fleet-footer">
+                                <a href="#" class="fleet-btn" onclick="openBookingModal('Big Bus Standard'); return false;"><i class="fab fa-whatsapp"></i> Booking Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Big Bus Luxury -->
+                    <div class="fleet-card">
+                        <div class="fleet-image">
+                            <span class="fleet-tag" style="background: var(--gold);">Premium</span>
+                            <img src="https://images.unsplash.com/photo-1557223562-6c77ef16210f?w=600&q=80" alt="Big Bus Luxury">
+                        </div>
+                        <div class="fleet-pricing">
+                            <div class="fleet-price" style="color: var(--gold);">Hubungi Kami</div>
+                            <div class="fleet-note">Untuk kenyamanan maksimal</div>
+                        </div>
+                        <div class="fleet-body">
+                            <div class="fleet-header-info">
+                                <div class="fleet-name">Big Bus Luxury</div>
+                                <div class="fleet-capacity" style="background: var(--gold); color: var(--dark);"><i class="fas fa-user"></i> 50 - 59 Seat</div>
+                            </div>
+                            <ul class="fleet-list">
+                                <li><i class="fas fa-check"></i> Full Reclining Seat (2-2)</li>
+                                <li><i class="fas fa-check"></i> USB Charger & WiFi</li>
+                                <li><i class="fas fa-check"></i> Karaoke & TV LED Besar</li>
+                                <li><i class="fas fa-check"></i> Toilet Bersih & Snack</li>
+                            </ul>
+                            <div class="fleet-footer">
+                                <a href="#" class="fleet-btn" onclick="openBookingModal('Big Bus Luxury'); return false;" style="background: var(--gold); color: var(--dark);"><i class="fab fa-whatsapp"></i> Booking Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Short ELF -->
+                    <div class="fleet-card">
+                        <div class="fleet-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXNyVA8X_sMW8VZcGQD32uXA7Byw4_7J2zKlRfG7Iifw&s=10" alt="Short ELF">
+                        </div>
+                        <div class="fleet-pricing">
+                            <div class="fleet-price">Hubungi Kami</div>
+                            <div class="fleet-note">Harga menyesuaikan rute & durasi</div>
+                        </div>
+                        <div class="fleet-body">
+                            <div class="fleet-header-info">
+                                <div class="fleet-name">Short ELF</div>
+                                <div class="fleet-capacity"><i class="fas fa-user"></i> Max 13 Seat</div>
+                            </div>
+                            <ul class="fleet-list">
+                                <li><i class="fas fa-check"></i> AC Dingin</li>
+                                <li><i class="fas fa-check"></i> Kursi Nyaman</li>
+                                <li><i class="fas fa-check"></i> Driver Profesional</li>
+                                <li><i class="fas fa-check"></i> Cocok untuk rombongan kecil</li>
+                            </ul>
+                            <div class="fleet-footer">
+                                <a href="#" class="fleet-btn" onclick="openBookingModal('Short ELF'); return false;"><i class="fab fa-whatsapp"></i> Booking Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Long ELF -->
+                    <div class="fleet-card">
+                        <div class="fleet-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkyBqlWiFnvnABKhCvSyqSbo4eBLEEZrgY3-KbNKmFaw&s=10" alt="Long ELF">
+                        </div>
+                        <div class="fleet-pricing">
+                            <div class="fleet-price">Hubungi Kami</div>
+                            <div class="fleet-note">Harga menyesuaikan rute & durasi</div>
+                        </div>
+                        <div class="fleet-body">
+                            <div class="fleet-header-info">
+                                <div class="fleet-name">Long ELF</div>
+                                <div class="fleet-capacity"><i class="fas fa-user"></i> Max 17 Seat</div>
+                            </div>
+                            <ul class="fleet-list">
+                                <li><i class="fas fa-check"></i> AC Double Blower</li>
+                                <li><i class="fas fa-check"></i> Kursi Reclining</li>
+                                <li><i class="fas fa-check"></i> Driver Berpengalaman</li>
+                                <li><i class="fas fa-check"></i> Ideal untuk medium group</li>
+                            </ul>
+                            <div class="fleet-footer">
+                                <a href="#" class="fleet-btn" onclick="openBookingModal('Long ELF'); return false;"><i class="fab fa-whatsapp"></i> Booking Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Long ELF Giga -->
+                    <div class="fleet-card featured">
+                        <div class="fleet-image">
+                            <span class="fleet-tag">Recommended</span>
+                            <img src="https://moladin.com/wp-content/uploads/2025/10/image-33-2.png" alt="Long ELF Giga">
+                        </div>
+                        <div class="fleet-pricing">
+                            <div class="fleet-price">Hubungi Kami</div>
+                            <div class="fleet-note">Harga menyesuaikan rute & durasi</div>
+                        </div>
+                        <div class="fleet-body">
+                            <div class="fleet-header-info">
+                                <div class="fleet-name">Long ELF Giga</div>
+                                <div class="fleet-capacity"><i class="fas fa-user"></i> Max 19 Seat</div>
+                            </div>
+                            <ul class="fleet-list">
+                                <li><i class="fas fa-check"></i> AC Double Blower</li>
+                                <li><i class="fas fa-check"></i> Kursi Empuk & Nyaman</li>
+                                <li><i class="fas fa-check"></i> Driver Profesional</li>
+                                <li><i class="fas fa-check"></i> Paling populer untuk grup</li>
+                            </ul>
+                            <div class="fleet-footer">
+                                <a href="#" class="fleet-btn" onclick="openBookingModal('Long ELF Giga'); return false;"><i class="fab fa-whatsapp"></i> Booking Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Butuh Penawaran Khusus Rombongan?</h2>
+                <p>Hubungi kami sekarang untuk mendapatkan harga spesial sewa bus/ELF harian, mingguan, atau kontrak jangka panjang.</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/6288235416304?text=Halo%20Happy%20Trans%20Malang,%20saya%20ingin%20minta%20penawaran%20harga%20sewa%20bus" class="btn btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> Chat WhatsApp</a>
+                    <a href="./" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="floating-wa-container">
+            <a href="https://wa.me/6288235416304?text=Halo%20Happy%20Trans%20Malang,%20saya%20ingin%20tanya%20sewa%20bus" class="floating-wa" target="_blank">
+                <i class="fab fa-whatsapp"></i><span class="wa-tooltip">WA: 0882-3541-6304</span>
+            </a>
+            <a href="https://wa.me/6281284876147?text=Halo%20Happy%20Trans%20Malang,%20saya%20ingin%20tanya%20sewa%20bus" class="floating-wa secondary" target="_blank">
+                <i class="fab fa-whatsapp"></i><span class="wa-tooltip">WA: 0812-8487-6147</span>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col footer-about">
+                    <h4>Tentang Kami</h4>
+                    <p>Happy Trans Malang adalah penyedia layanan transportasi pariwisata terpercaya di Malang dan Batu. Kami menyediakan sewa Hiace, Medium Bus, ELF, dan Big Bus dengan armada terawat dan driver profesional.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/6288235416304"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col footer-links">
+                    <h4>Link Cepat</h4>
+                    <ul>
+                        <li><a href="./">Beranda</a></li>
+                        <li><a href="armada.html">Armada</a></li>
+                        <li><a href="paket-wisata.html">Paket Wisata</a></li>
+                        <li><a href="custom-trip.html">Custom Trip</a></li>
+                        <li><a href="sewa-bus.html">Sewa Bus</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col footer-contact">
+                    <h4>Hubungi Kami</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Kajoetangan Heritage, Jl. Arif Rahman Hakim, Malang</p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/6288235416304">0882-3541-6304</a></p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/6281284876147">0812-8487-6147</a></p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:happytransmalang@gmail.com">happytransmalang@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> 24/7 Online Support</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan!'); this.reset();">
+                        <input type="email" placeholder="Email Anda" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <span>Happy Trans Malang</span>. All rights reserved. | Kajoetangan Heritage, Malang</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== BOOKING MODAL ==================== -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <h3><i class="fas fa-calendar-alt"></i> Form Booking</h3>
+                    <p>Isi data di bawah untuk memesan layanan Happy Trans Malang</p>
+                </div>
+                <button class="modal-close" onclick="closeBookingModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm" onsubmit="sendToWhatsApp(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>NAMA LENGKAP <span class="required">*</span></label>
+                            <input type="text" id="bookName" placeholder="Nama Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <label>NO. WHATSAPP <span class="required">*</span></label>
+                            <input type="tel" id="bookPhone" placeholder="08xx-xxxx-xxxx" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ARMADA / LAYANAN <span class="required">*</span></label>
+                            <select id="bookService" required>
+                                <option value="">-- Pilih Layanan --</option>
+                                <option value="Short ELF">Short ELF (13 Seat)</option>
+                                <option value="Long ELF">Long ELF (17 Seat)</option>
+                                <option value="Long ELF Giga">Long ELF Giga (19 Seat)</option>
+                                <option value="Medium Bus">Medium Bus (30-35 Seat)</option>
+                                <option value="Big Bus Standard">Big Bus Standard (50-59 Seat)</option>
+                                <option value="Big Bus Luxury">Big Bus Luxury (50-59 Seat)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>TANGGAL BERANGKAT <span class="required">*</span></label>
+                            <input type="date" id="bookDate" required>
+                        </div>
+                    </div>
+
+                    <!-- LOKASI PENJEMPUTAN -->
+                    <div class="form-group">
+                        <label>LOKASI PENJEMPUTAN <span class="required">*</span></label>
+                        <select id="bookPickupLocation" required onchange="checkCustomPickup()">
+                            <option value="">- pilih lokasi penjemputan -</option>
+                            <option value="Bandara Malang">Bandara Malang</option>
+                            <option value="Stasiun Malang">Stasiun Malang</option>
+                            <option value="Hotel Malang">Hotel Malang</option>
+                            <option value="Hotel Batu">Hotel Batu</option>
+                            <option value="Bandara Surabaya">Bandara Surabaya</option>
+                            <option value="Stasiun Surabaya">Stasiun Surabaya</option>
+                            <option value="Hotel Surabaya">Hotel Surabaya</option>
+                            <option value="custom">Saya isikan di catatan</option>
+                        </select>
+                    </div>
+
+                    <!-- TUJUAN -->
+                    <div class="form-group">
+                        <label>TUJUAN <span class="required">*</span></label>
+                        <select id="bookDestination" required onchange="checkCustomDestination()">
+                            <option value="">- pilih tujuan -</option>
+                            <option value="Kota Malang">Kota Malang</option>
+                            <option value="Kota Batu">Kota Batu</option>
+                            <option value="Bromo">Bromo</option>
+                            <option value="Pantai Malang">Pantai Malang</option>
+                            <option value="Surabaya">Surabaya</option>
+                            <option value="custom">Saya isikan di catatan</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>DURASI (HARI) <span class="required">*</span></label>
+                        <input type="number" id="bookDuration" placeholder="1" min="1" value="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CATATAN TAMBAHAN</label>
+                        <textarea id="bookNotes" placeholder="Permintaan khusus, itinerary, dll" rows="3"></textarea>
+                    </div>
+
+                    <div class="booking-summary">
+                        <h4><i class="fas fa-info-circle"></i> Ringkasan Booking</h4>
+                        <p>Isi form di atas untuk melihat ringkasan pemesanan Anda.</p>
+                    </div>
+
+                    <button type="submit" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> KIRIM VIA WHATSAPP
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) { icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times'); }
+            });
+        }
+
+        // ==================== BOOKING MODAL LOGIC ====================
+        function openBookingModal(serviceName = '') {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            if (serviceName) {
+                const serviceSelect = document.getElementById('bookService');
+                serviceSelect.value = serviceName;
+            }
+            
+            const dateInput = document.getElementById('bookDate');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.getElementById('bookingForm').reset();
+            document.querySelector('.booking-summary').innerHTML = `
+                <h4><i class="fas fa-info-circle"></i> Ringkasan Booking</h4>
+                <p>Isi form di atas untuk melihat ringkasan pemesanan Anda.</p>
+            `;
+            // Reset textarea style
+            const notesField = document.getElementById('bookNotes');
+            notesField.style.borderColor = '#e9ecef';
+            notesField.style.backgroundColor = 'var(--light)';
+        }
+
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBookingModal();
+            }
+        });
+
+        // Fungsi untuk handle custom pickup location
+        function checkCustomPickup() {
+            const pickupSelect = document.getElementById('bookPickupLocation');
+            const notesField = document.getElementById('bookNotes');
+            
+            if (pickupSelect.value === 'custom') {
+                notesField.placeholder = '⚠️ MOHON ISI ALAMAT LENGKAP PENJEMPUTAN di sini, serta permintaan khusus lainnya';
+                notesField.style.borderColor = 'var(--secondary)';
+                notesField.style.backgroundColor = '#fff3cd';
+            } else if (document.getElementById('bookDestination').value !== 'custom') {
+                notesField.placeholder = 'Permintaan khusus, itinerary, dll';
+                notesField.style.borderColor = '#e9ecef';
+                notesField.style.backgroundColor = 'var(--light)';
+            }
+        }
+
+        // Fungsi untuk handle custom destination
+        function checkCustomDestination() {
+            const destSelect = document.getElementById('bookDestination');
+            const notesField = document.getElementById('bookNotes');
+            
+            if (destSelect.value === 'custom') {
+                notesField.placeholder = '⚠️ MOHON ISI TUJUAN LENGKAP di sini, serta permintaan khusus lainnya';
+                notesField.style.borderColor = 'var(--secondary)';
+                notesField.style.backgroundColor = '#fff3cd';
+            } else if (document.getElementById('bookPickupLocation').value !== 'custom') {
+                notesField.placeholder = 'Permintaan khusus, itinerary, dll';
+                notesField.style.borderColor = '#e9ecef';
+                notesField.style.backgroundColor = 'var(--light)';
+            }
+        }
+
+        document.getElementById('bookingForm').addEventListener('input', updateSummary);
+
+        function updateSummary() {
+            const name = document.getElementById('bookName').value;
+            const service = document.getElementById('bookService').value;
+            const date = document.getElementById('bookDate').value;
+            const duration = document.getElementById('bookDuration').value;
+            const pickupLocation = document.getElementById('bookPickupLocation').value;
+            const destination = document.getElementById('bookDestination').value;
+            
+            if (name && service && date) {
+                const summary = document.querySelector('.booking-summary');
+                const formattedDate = new Date(date).toLocaleDateString('id-ID', {
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                });
+                
+                const pickupText = pickupLocation && pickupLocation !== 'custom' ? pickupLocation : 'Akan dikonfirmasi';
+                const destText = destination && destination !== 'custom' ? destination : 'Akan dikonfirmasi';
+                
+                summary.innerHTML = `
+                    <h4><i class="fas fa-info-circle"></i> Ringkasan Booking</h4>
+                    <p><strong>${name}</strong> ingin memesan <strong>${service}</strong></p>
+                    <p>📅 ${formattedDate} | ⏱️ ${duration} hari</p>
+                    <p>📍 Jemput: ${pickupText}</p>
+                    <p>🎯 Tujuan: ${destText}</p>
+                `;
+            }
+        }
+
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('bookName').value;
+            const phone = document.getElementById('bookPhone').value;
+            const service = document.getElementById('bookService').value;
+            const date = document.getElementById('bookDate').value;
+            const duration = document.getElementById('bookDuration').value;
+            const pickupLocation = document.getElementById('bookPickupLocation').value;
+            const destination = document.getElementById('bookDestination').value;
+            const notes = document.getElementById('bookNotes').value;
+            
+            const formattedDate = new Date(date).toLocaleDateString('id-ID', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+            
+            let pickupText = pickupLocation;
+            if (pickupLocation === 'custom') {
+                pickupText = notes.toLowerCase().includes('jemput') || notes.toLowerCase().includes('alamat') ? 'Lihat di catatan' : 'Akan dikonfirmasi via chat';
+            }
+            
+            let destText = destination;
+            if (destination === 'custom') {
+                destText = notes.toLowerCase().includes('tujuan') || notes.toLowerCase().includes('destinasi') ? 'Lihat di catatan' : 'Akan dikonfirmasi via chat';
+            }
+            
+            const message = `*BOOKING HAPPY TRANS MALANG* 🚐\n\n` +
+                           `*DATA PEMESAN:*\n` +
+                           `👤 Nama: ${name}\n` +
+                           `📱 No. WA: ${phone}\n` +
+                           `\n*DETAIL PESANAN:*\n` +
+                           `🎯 Layanan: ${service}\n` +
+                           `📅 Tanggal: ${formattedDate}\n` +
+                           `⏱️ Durasi: ${duration} hari\n` +
+                           `📍 Lokasi Jemput: ${pickupText}\n` +
+                           `🎪 Tujuan: ${destText}\n` +
+                           `${notes ? '\n*CATATAN TAMBAHAN:*\n' + notes : ''}\n\n` +
+                           `Mohon konfirmasi ketersediaan dan total biaya. Terima kasih! 🙏`;
+            
+            const waNumber = '6288235416304';
+            const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(waUrl, '_blank');
+            closeBookingModal();
+        }
+    </script>
+</body>
+</html>
